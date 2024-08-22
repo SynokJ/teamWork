@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IPickable pickable = other.GetComponent<IPickable>();
-        if (pickable != null)
+        if (pickable != null && _weapon == null)
         {
             _weapon = pickable.OnPicked();
             _weapon.InitWeapon(_weaponSnapPos, transform);
@@ -24,6 +24,10 @@ public class PlayerInteraction : MonoBehaviour
             _weapon.UseWeapon();
 
         if (Input.GetKeyDown(KeyCode.G))
+        {
             _weapon.DropWeapon();
+            _weapon = null;
+        }
     }
+
 }
